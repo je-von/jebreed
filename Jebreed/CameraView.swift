@@ -100,84 +100,51 @@ struct CameraView: View {
                 )
         })
     }
-    
-//    var capturedPhotoThumbnail: some View {
-//        Group {
-//            if model.photo != nil {
-//                Image(uiImage: model.photo.image!)
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fill)
-//                    .frame(width: 60, height: 60)
-//                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-//                    .animation(.spring())
-//
-//            } else {
-//                RoundedRectangle(cornerRadius: 10)
-//                    .frame(width: 60, height: 60, alignment: .center)
-//                    .foregroundColor(.black)
-//            }
-//        }
-//    }
     var openPickerButton: some View {
         PhotosPicker(selection: $selectedItem, matching: .images) {
             Image(systemName: "photo.fill.on.rectangle.fill")
                 .foregroundColor(.white)
-                }
+        }
     }
     
     var flipCameraButton: some View {
         Button(action: {
             model.flipCamera()
         }, label: {
-//            Circle()
-//                .foregroundColor(Color.gray.opacity(0.2))
-//                .frame(width: 45, height: 45, alignment: .center)
-//                .overlay(
-                    Image(systemName: "camera.rotate.fill")
-                        .foregroundColor(.white)
-//            )
+            Image(systemName: "camera.rotate.fill")
+                .foregroundColor(.white)
         })
     }
     
     var body: some View {
         NavigationStack {
-            GeometryReader { reader in
-                ZStack {
-                    Color.black.edgesIgnoringSafeArea(.all)
+            ZStack {
+                Color.black.edgesIgnoringSafeArea(.all)
+                
+                VStack {
                     
-                    VStack {
-                        
-                        HStack {
-                            Button("Test"){
-                                
-                            }
-                            Spacer()
-                            Button(action: {
-                                model.switchFlash()
-                            }, label: {
-                                Image(systemName: model.isFlashOn ? "bolt.fill" : "bolt.slash.fill")
-                                    .font(.system(size: 20, weight: .medium, design: .default))
-                            })
-                            .accentColor(model.isFlashOn ? .yellow : .white)
+                    HStack {
+                        Button("Collections"){
+                            
                         }
-                        
+                        Spacer()
+                        Button(action: {
+                            model.switchFlash()
+                        }, label: {
+                            Image(systemName: model.isFlashOn ? "bolt.fill" : "bolt.slash.fill")
+                                .font(.system(size: 20, weight: .medium, design: .default))
+                        })
+                        .accentColor(model.isFlashOn ? .yellow : .white)
+                    }
+                    .padding(.horizontal, 16)
+                    
+                    ZStack {
                         CameraPreview(session: model.session)
                             .gesture(
                                 MagnificationGesture().onChanged{ scale in
-                                    //  Only accept vertical drag
-//                                    if scale.
-//                                    if abs(val) > abs(val) {
-//                                        //  Get the percentage of vertical screen space covered by drag
-//                                        let percentage: CGFloat = -(val / reader.size.height)
-//                                        //  Calculate new zoom factor
-//                                        let calc = currentZoomFactor + percentage
-//                                        //  Limit zoom factor to a maximum of 5x and a minimum of 1x
-                                        let zoomFactor: CGFloat = min(max(scale, 1), 5)
-//                                        //  Store the newly calculated zoom factor
-                                        currentZoomFactor = zoomFactor
-                                        //  Sets the zoom factor to the capture device session
-                                        model.zoom(with: zoomFactor)
-//                                    }
+                                    let zoomFactor: CGFloat = min(max(scale, 1), 5)
+                                    currentZoomFactor = zoomFactor
+                                    model.zoom(with: zoomFactor)
                                 }
                             )
                             .onAppear {
@@ -194,45 +161,42 @@ struct CameraView: View {
                                         Color.black
                                     }
                                 }
-                            )
-                            .animation(.easeInOut)
-                        
-                        
-                        HStack {
-//                            NavigationLink(destination: Text("Detail photo")) {
-//                                capturedPhotoThumbnail
-//                            }
-                            openPickerButton
-                            
+                        )
+                        VStack{
                             Spacer()
-                            
-                            captureButton
-                            
-                            Spacer()
-                            
-                            flipCameraButton
-                            
+                            Text("Position Dog in view.")
+                                .foregroundColor(.white)
+                                .background(.black.opacity(0.7))
                         }
-                        .padding(.horizontal, 20)
                     }
+                    
+                    HStack {
+                        openPickerButton
+                        Spacer()
+                        captureButton
+                        Spacer()
+                        flipCameraButton
+                    }
+                    .padding(.horizontal, 16)
                 }
-                .onChange(of: model.photo){ p in
-                    if p != nil {
-                        dogImage = model.photo != nil ? model.photo.image : nil
+                
+            }
+            .onChange(of: model.photo){ p in
+                if p != nil {
+                    dogImage = model.photo != nil ? model.photo.image : nil
+                    moveToResultPage = true
+                }
+            }
+            .onChange(of: selectedItem) { newValue in
+                Task {
+                    if let imageData = try? await newValue?.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
+                        dogImage = image
                         moveToResultPage = true
                     }
                 }
-                .onChange(of: selectedItem) { newValue in
-                    Task {
-                        if let imageData = try? await newValue?.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
-                            dogImage = image
-                            moveToResultPage = true
-                        }
-                    }
-                }
-                .navigationDestination(isPresented: $moveToResultPage){
-                    MainView(uiImage: dogImage, classifier: ImageClassifier())
-                }
+            }
+            .navigationDestination(isPresented: $moveToResultPage){
+                MainView(uiImage: dogImage, classifier: ImageClassifier())
             }
         }
     }
