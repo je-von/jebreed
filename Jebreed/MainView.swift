@@ -10,6 +10,7 @@ import SwiftUI
 struct MainView: View {
     @State var isPresenting: Bool = false
     @State var uiImage: UIImage?
+    @State var sourceType: UIImagePickerController.SourceType = .photoLibrary
     
     @ObservedObject var classifier: ImageClassifier
     
@@ -19,9 +20,14 @@ struct MainView: View {
                 Image(systemName: "photo")
                     .onTapGesture {
                         isPresenting = true
+                        sourceType = .photoLibrary
                     }
                 
                 Image(systemName: "camera")
+                    .onTapGesture {
+                        isPresenting = true
+                        sourceType = .camera
+                    }
             }
             .font(.title)
             .foregroundColor(.blue)
@@ -74,7 +80,7 @@ struct MainView: View {
         }
         
         .sheet(isPresented: $isPresenting){
-            ImagePicker(uiImage: $uiImage, isPresenting:  $isPresenting)
+            ImagePicker(uiImage: $uiImage, isPresenting:  $isPresenting, sourceType: $sourceType)
                 .onDisappear{
                     if uiImage != nil {
                         classifier.detect(uiImage: uiImage!)
