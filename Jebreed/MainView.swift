@@ -46,12 +46,14 @@ struct MainView: View {
                         HStack{
                             Text("Image categories:")
                                 .font(.caption)
-                            Text(imageClass)
-                                .bold()
+                            ForEach(imageClass, id: \.self){ c in
+                                Text("\(c.identifier) (\(Int(ceil(c.confidence * 100)))%) ")
+                                    .bold()
+                            }
                         }
                     } else {
                         HStack{
-                            Text("Image categories: NA")
+                            Text("Image categories: N/A")
                                 .font(.caption)
                         }
                     }

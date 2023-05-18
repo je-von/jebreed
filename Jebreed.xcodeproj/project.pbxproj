@@ -17,7 +17,6 @@
 		0A13545F2A1631A800A3F018 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A13545E2A1631A800A3F018 /* CameraView.swift */; };
 		0ADC195C2A1609F500806D71 /* DogImageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0ADC195B2A1609F500806D71 /* DogImageClassifier.mlmodel */; };
 		0ADC195E2A160AA400806D71 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADC195D2A160AA400806D71 /* MainView.swift */; };
-		0ADC19622A16126D00806D71 /* Classifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADC19612A16126D00806D71 /* Classifier.swift */; };
 		0ADC19642A16132D00806D71 /* ImageClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADC19632A16132D00806D71 /* ImageClassifier.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,7 +32,6 @@
 		0A13545E2A1631A800A3F018 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		0ADC195B2A1609F500806D71 /* DogImageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DogImageClassifier.mlmodel; sourceTree = "<group>"; };
 		0ADC195D2A160AA400806D71 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		0ADC19612A16126D00806D71 /* Classifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classifier.swift; sourceTree = "<group>"; };
 		0ADC19632A16132D00806D71 /* ImageClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageClassifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,7 +92,6 @@
 			isa = PBXGroup;
 			children = (
 				0ADC195B2A1609F500806D71 /* DogImageClassifier.mlmodel */,
-				0ADC19612A16126D00806D71 /* Classifier.swift */,
 				0ADC19632A16132D00806D71 /* ImageClassifier.swift */,
 			);
 			path = Model;
@@ -176,7 +173,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0ADC19622A16126D00806D71 /* Classifier.swift in Sources */,
 				0ADC19642A16132D00806D71 /* ImageClassifier.swift in Sources */,
 				0A1091B52A15CB3A0014DEF3 /* Persistence.swift in Sources */,
 				0A13545F2A1631A800A3F018 /* CameraView.swift in Sources */,
