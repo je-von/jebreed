@@ -6,14 +6,14 @@
 //
 
 import SwiftUI
-
+import PhotosUI
 struct MainView: View {
     @State var isPresenting: Bool = false
     @State var uiImage: UIImage?
     @State var sourceType: UIImagePickerController.SourceType = .photoLibrary
     
     @ObservedObject var classifier: ImageClassifier
-    
+    @State var selectedItems: [PhotosPickerItem] = []
     var body: some View {
         VStack{
             HStack{
@@ -41,12 +41,19 @@ struct MainView: View {
                             Image(uiImage: uiImage!)
                                 .resizable()
                                 .scaledToFit()
+                                .onAppear{
+                                    classifier.detect(uiImage: uiImage!)
+                                }
                         }
                     }
                 )
             
             
             VStack{
+                PhotosPicker(selection: $selectedItems,
+                                     matching: .images) {
+                            Text("Select Multiple Photos")
+                        }
                 Button(action: {
                     if uiImage != nil {
                         classifier.detect(uiImage: uiImage!)

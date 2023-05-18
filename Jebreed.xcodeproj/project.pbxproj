@@ -13,6 +13,8 @@
 		0A1091B32A15CB3A0014DEF3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A1091B22A15CB3A0014DEF3 /* Preview Assets.xcassets */; };
 		0A1091B52A15CB3A0014DEF3 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1091B42A15CB3A0014DEF3 /* Persistence.swift */; };
 		0A1091B82A15CB3A0014DEF3 /* Jebreed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A1091B62A15CB3A0014DEF3 /* Jebreed.xcdatamodeld */; };
+		0A13545D2A16313300A3F018 /* Camera-SwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 0A13545C2A16313300A3F018 /* Camera-SwiftUI */; };
+		0A13545F2A1631A800A3F018 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A13545E2A1631A800A3F018 /* CameraView.swift */; };
 		0ADC195C2A1609F500806D71 /* DogImageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0ADC195B2A1609F500806D71 /* DogImageClassifier.mlmodel */; };
 		0ADC195E2A160AA400806D71 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADC195D2A160AA400806D71 /* MainView.swift */; };
 		0ADC19602A16105200806D71 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADC195F2A16105200806D71 /* ImagePicker.swift */; };
@@ -29,6 +31,7 @@
 		0A1091B42A15CB3A0014DEF3 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		0A1091B72A15CB3A0014DEF3 /* Jebreed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Jebreed.xcdatamodel; sourceTree = "<group>"; };
 		0A1354542A161C3700A3F018 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		0A13545E2A1631A800A3F018 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		0ADC195B2A1609F500806D71 /* DogImageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DogImageClassifier.mlmodel; sourceTree = "<group>"; };
 		0ADC195D2A160AA400806D71 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		0ADC195F2A16105200806D71 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -41,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A13545D2A16313300A3F018 /* Camera-SwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +80,7 @@
 				0A1091B62A15CB3A0014DEF3 /* Jebreed.xcdatamodeld */,
 				0A1091B12A15CB3A0014DEF3 /* Preview Content */,
 				0ADC195D2A160AA400806D71 /* MainView.swift */,
+				0A13545E2A1631A800A3F018 /* CameraView.swift */,
 			);
 			path = Jebreed;
 			sourceTree = "<group>";
@@ -114,6 +119,9 @@
 			dependencies = (
 			);
 			name = Jebreed;
+			packageProductDependencies = (
+				0A13545C2A16313300A3F018 /* Camera-SwiftUI */,
+			);
 			productName = Jebreed;
 			productReference = 0A1091A82A15CB380014DEF3 /* Jebreed.app */;
 			productType = "com.apple.product-type.application";
@@ -142,6 +150,9 @@
 				Base,
 			);
 			mainGroup = 0A10919F2A15CB380014DEF3;
+			packageReferences = (
+				0A13545B2A16313300A3F018 /* XCRemoteSwiftPackageReference "Camera-SwiftUI" */,
+			);
 			productRefGroup = 0A1091A92A15CB380014DEF3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -171,6 +182,7 @@
 				0ADC19622A16126D00806D71 /* Classifier.swift in Sources */,
 				0ADC19642A16132D00806D71 /* ImageClassifier.swift in Sources */,
 				0A1091B52A15CB3A0014DEF3 /* Persistence.swift in Sources */,
+				0A13545F2A1631A800A3F018 /* CameraView.swift in Sources */,
 				0ADC195E2A160AA400806D71 /* MainView.swift in Sources */,
 				0A1091B82A15CB3A0014DEF3 /* Jebreed.xcdatamodeld in Sources */,
 				0ADC19602A16105200806D71 /* ImagePicker.swift in Sources */,
@@ -377,6 +389,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0A13545B2A16313300A3F018 /* XCRemoteSwiftPackageReference "Camera-SwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rorodriguez116/Camera-SwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0A13545C2A16313300A3F018 /* Camera-SwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A13545B2A16313300A3F018 /* XCRemoteSwiftPackageReference "Camera-SwiftUI" */;
+			productName = "Camera-SwiftUI";
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		0A1091B62A15CB3A0014DEF3 /* Jebreed.xcdatamodeld */ = {

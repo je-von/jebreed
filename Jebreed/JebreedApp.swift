@@ -15,7 +15,8 @@ struct JebreedApp: App {
         WindowGroup {
 //            ContentView()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-            MainView(classifier: ImageClassifier())
+//            MainView(classifier: ImageClassifier())
+            CameraView()
         }
     }
 }
