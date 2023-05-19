@@ -47,6 +47,7 @@ struct MainView: View {
                             Text("Image categories:")
                                 .font(.caption)
                             ForEach(imageClass, id: \.self){ c in
+//                                Text("\(c.description) (\(Int(ceil(c.confidence * 100)))%) ")
                                 Text("\(c.identifier) (\(Int(ceil(c.confidence * 100)))%) ")
                                     .bold()
                             }
@@ -56,6 +57,9 @@ struct MainView: View {
                             Text("Image categories: N/A")
                                 .font(.caption)
                         }
+                    }
+                    if !classifier.isDogVisible {
+                        Text("DOG NOT FOUND!!!")
                     }
                 }
                 .font(.subheadline)

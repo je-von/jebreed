@@ -15,6 +15,7 @@
 		0A1091B82A15CB3A0014DEF3 /* Jebreed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A1091B62A15CB3A0014DEF3 /* Jebreed.xcdatamodeld */; };
 		0A13545D2A16313300A3F018 /* Camera-SwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 0A13545C2A16313300A3F018 /* Camera-SwiftUI */; };
 		0A13545F2A1631A800A3F018 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A13545E2A1631A800A3F018 /* CameraView.swift */; };
+		0AAECB442A17B63A00B0864E /* DogObjectDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0AAECB432A17B63A00B0864E /* DogObjectDetector.mlmodel */; };
 		0ADC195C2A1609F500806D71 /* DogImageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0ADC195B2A1609F500806D71 /* DogImageClassifier.mlmodel */; };
 		0ADC195E2A160AA400806D71 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADC195D2A160AA400806D71 /* MainView.swift */; };
 		0ADC19642A16132D00806D71 /* ImageClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADC19632A16132D00806D71 /* ImageClassifier.swift */; };
@@ -30,6 +31,7 @@
 		0A1091B72A15CB3A0014DEF3 /* Jebreed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Jebreed.xcdatamodel; sourceTree = "<group>"; };
 		0A1354542A161C3700A3F018 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0A13545E2A1631A800A3F018 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		0AAECB432A17B63A00B0864E /* DogObjectDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DogObjectDetector.mlmodel; sourceTree = "<group>"; };
 		0ADC195B2A1609F500806D71 /* DogImageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DogImageClassifier.mlmodel; sourceTree = "<group>"; };
 		0ADC195D2A160AA400806D71 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		0ADC19632A16132D00806D71 /* ImageClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageClassifier.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 		0ADC195A2A1609EA00806D71 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0AAECB432A17B63A00B0864E /* DogObjectDetector.mlmodel */,
 				0ADC195B2A1609F500806D71 /* DogImageClassifier.mlmodel */,
 				0ADC19632A16132D00806D71 /* ImageClassifier.swift */,
 			);
@@ -175,6 +178,7 @@
 			files = (
 				0ADC19642A16132D00806D71 /* ImageClassifier.swift in Sources */,
 				0A1091B52A15CB3A0014DEF3 /* Persistence.swift in Sources */,
+				0AAECB442A17B63A00B0864E /* DogObjectDetector.mlmodel in Sources */,
 				0A13545F2A1631A800A3F018 /* CameraView.swift in Sources */,
 				0ADC195E2A160AA400806D71 /* MainView.swift in Sources */,
 				0A1091B82A15CB3A0014DEF3 /* Jebreed.xcdatamodeld in Sources */,
