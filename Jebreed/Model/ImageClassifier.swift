@@ -89,7 +89,8 @@ struct Classifier {
             return
         }
         
-        self.results = Array(imageClassifierResults.prefix(upTo: 3))
+        self.results = Array(imageClassifierResults.prefix(upTo: 3).filter{ $0.confidence > 0.01 })
+//        self.results = imageClassifierResults.filter {$0.confidence > 0.01}
         isDogVisible = true
     }
     
