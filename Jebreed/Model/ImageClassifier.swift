@@ -21,6 +21,10 @@ class ImageClassifier: ObservableObject {
     var isDogVisible: Bool {
         classifier.isDogVisible
     }
+    
+    var sum: Float {
+        classifier.sum
+    }
         
     // MARK: Intent(s)
     func detect(uiImage: UIImage) {
@@ -38,6 +42,7 @@ struct Classifier {
     
     private(set) var results: [VNClassificationObservation]?
     private(set) var isDogVisible = true
+    private(set) var sum: Float = 0.0
     
 //    private(set) var results: [VNRecognizedObjectObservation]?
     
@@ -90,6 +95,12 @@ struct Classifier {
         }
         
         self.results = Array(imageClassifierResults.prefix(upTo: 3).filter{ $0.confidence > 0.01 })
+        self.sum = 0
+        self.results?.forEach { r in
+            self.sum += r.confidence
+        }
+        
+        
 //        self.results = imageClassifierResults.filter {$0.confidence > 0.01}
         isDogVisible = true
     }

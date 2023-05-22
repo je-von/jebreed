@@ -16,7 +16,8 @@ struct JebreedApp: App {
 //            ContentView()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
 //            MainView(classifier: ImageClassifier())
-            CameraView()
+//            CameraView()
+            SplashScreen()
         }
     }
 }
