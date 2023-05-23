@@ -74,8 +74,10 @@ struct MainView: View {
                         }
                     }
                     .frame(height: 20 * CGFloat(imageClass.count + 1) + 20)
-                    Text("Fun Fact: \(funFacts[classifier.imageClass?.first?.identifier ?? "default"] ?? "")")
-                        .padding(.vertical)
+                    .padding(.bottom)
+                    Text(Image(systemName: "info.circle"))
+                    +
+                    Text(" Fun Fact: \(funFacts[classifier.imageClass?.first?.identifier ?? "default"] ?? "")")
                 }
             } else {
             }
@@ -85,7 +87,6 @@ struct MainView: View {
                     .font(.title)
                 Text("No dog in sight, woofless!")
             }
-            
             Spacer()
             
             HStack{
