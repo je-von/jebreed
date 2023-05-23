@@ -44,7 +44,7 @@ struct MainView: View {
             .frame(height: 340)
             .cornerRadius(12)
             .clipped()
-            
+            .padding(.bottom)
             
             if let imageClass = classifier.imageClass {
                 VStack{
@@ -56,7 +56,7 @@ struct MainView: View {
                         BarMark(
                             x: .value("Source", c.confidence * 100)
                         )
-                        .clipShape(RoundedCorner(radius: 12, corners: c == imageClass.first ? [.bottomLeft, .topLeft] : c == imageClass.last ? [.bottomRight, .topRight] : []))
+                        .clipShape(RoundedCorner(radius: 12, corners: imageClass.count == 1 ? [.allCorners] : c == imageClass.first ? [.bottomLeft, .topLeft] : c == imageClass.last ? [.bottomRight, .topRight] : []))
                         .foregroundStyle(by: .value("Category", String(format: "\(c.identifier) (%.2f %%)                                                        ", c.confidence * 100)))
                         
                     }
@@ -73,7 +73,7 @@ struct MainView: View {
                             AxisTick().foregroundStyle(.clear)
                         }
                     }
-                    .frame(height: 6 * CGFloat(imageClass.count) + 60)
+                    .frame(height: 20 * CGFloat(imageClass.count + 1) + 20)
                     Text("Fun Fact: \(funFacts[classifier.imageClass?.first?.identifier ?? "default"] ?? "")")
                         .padding(.vertical)
                 }
