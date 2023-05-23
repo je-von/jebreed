@@ -78,7 +78,7 @@ struct MainView: View {
                         }
                     }
                     
-                    Text("Fun Fact: asdf")
+                    Text("Fun Fact: \(funFacts[classifier.imageClass?.first?.identifier ?? "default"] ?? "")")
                 }
             } else {
                 //                    HStack{
@@ -127,6 +127,9 @@ struct MainView: View {
     private func addItem() {
         //        withAnimation {
         let newItem = Item(context: viewContext)
+        
+        let pngImageData  = uiImage?.pngData()
+        newItem.image = pngImageData
         newItem.timestamp = Date()
         newItem.breed = classifier.imageClass?.first?.identifier ?? ""
         newItem.confidence = Double(classifier.imageClass?.first?.confidence ?? 0 * 100.0)

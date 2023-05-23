@@ -17,29 +17,36 @@ struct ContentView: View {
     private var items: FetchedResults<Item>
 
     var body: some View {
-        NavigationView {
             List {
                 ForEach(items) { item in
 //                    NavigationLink {
-                    Text("\(item.breed ?? "") (\(String(format: "%.2f", item.confidence * 100.0))) at \(item.timestamp!, formatter: itemFormatter)")
+                    HStack{
+                        if item.image != nil {
+                            Image(uiImage: UIImage(data: item.image!)!)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 64, height: 64)
+                                .cornerRadius(12)
+                                .clipped()
+                        }
+                        VStack (alignment: .leading){
+                            Text(item.breed ?? "Breed")
+                                .bold()
+                                .font(.title3)
+                            Text("\(item.timestamp!, formatter: itemFormatter)")
+                                .font(.caption)
+                        }
+                        Spacer()
+                        
+                        Text(String(format: "%.2f%%", item.confidence * 100.0))
+                    }
 //                    } label: {
 //                        Text(item.timestamp!, formatter: itemFormatter)
 //                    }
                 }
                 .onDelete(perform: deleteItems)
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-            Text("Select an item")
-        }
+            .navigationTitle("Collections")
     }
 
     private func addItem() {
@@ -76,8 +83,8 @@ struct ContentView: View {
 
 private let itemFormatter: DateFormatter = {
     let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
+    formatter.dateStyle = .medium
+    formatter.timeStyle = .none
     return formatter
 }()
 
