@@ -77,7 +77,6 @@
 				0A1354542A161C3700A3F018 /* Info.plist */,
 				0ADC195A2A1609EA00806D71 /* Model */,
 				0A1091AB2A15CB380014DEF3 /* JebreedApp.swift */,
-				0A1091AD2A15CB380014DEF3 /* ContentView.swift */,
 				0A1091AF2A15CB3A0014DEF3 /* Assets.xcassets */,
 				0A1091B42A15CB3A0014DEF3 /* Persistence.swift */,
 				0A1091B62A15CB3A0014DEF3 /* Jebreed.xcdatamodeld */,
@@ -100,6 +99,7 @@
 				0ADC195D2A160AA400806D71 /* MainView.swift */,
 				0A13545E2A1631A800A3F018 /* CameraView.swift */,
 				0A646FC72A1B2A1600B1DF6C /* SplashScreen.swift */,
+				0A1091AD2A15CB380014DEF3 /* ContentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

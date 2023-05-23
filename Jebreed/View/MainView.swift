@@ -8,11 +8,22 @@
 import SwiftUI
 import PhotosUI
 import Charts
+import CoreData
 struct MainView: View {
     @State var uiImage: UIImage?
     @ObservedObject var classifier: ImageClassifier
     
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        animation: .default)
+    private var items: FetchedResults<Item>
+    
     @Environment(\.presentationMode) var presentationMode
+    
+    @State private var hasSaved = false
+    
+    let persistenceController = PersistenceController.shared
     var body: some View {
         VStack{
             VStack{
@@ -34,15 +45,6 @@ struct MainView: View {
             .cornerRadius(12)
             .clipped()
             
-            //                Button(action: {
-            //                    if uiImage != nil {
-            //                        classifier.detect(uiImage: uiImage!)
-            //                    }
-            //                }) {
-            //                    Image(systemName: "bolt.fill")
-            //                        .foregroundColor(.orange)
-            //                        .font(.title)
-            //                }
             
             if let imageClass = classifier.imageClass {
                 VStack{
@@ -50,27 +52,31 @@ struct MainView: View {
                     Text(imageClass.first?.identifier ?? "")
                         .bold()
                         .font(.title)
-                    Chart(imageClass, id: \.self) { c in
-                        BarMark(
-                            x: .value("Source", c.confidence * 100)
-                        )
-                        .foregroundStyle(by: .value("Category", String(format: "\(c.identifier) (%.2f %%)", c.confidence * 100)))
-//                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                        
-                    }
-                    .chartYAxis {
-                        AxisMarks(position: .leading) { _ in
-                            AxisGridLine().foregroundStyle(.clear)
-                            AxisTick().foregroundStyle(.clear)
+                    GeometryReader{ geo in
+                        VStack{
+                            Text("geo: \(geo.size.height)")
+                            
+                            Chart(imageClass, id: \.self) { c in
+                                BarMark(
+                                    x: .value("Source", c.confidence * 100)
+                                )
+                                .foregroundStyle(by: .value("Category", String(format: "\(c.identifier) (%.2f %%)", c.confidence * 100)))
+                                
+                            }
+                            .chartYAxis {
+                                AxisMarks(position: .leading) { _ in
+                                    AxisGridLine().foregroundStyle(.clear)
+                                    AxisTick().foregroundStyle(.clear)
+                                }
+                            }
+                            .chartXAxis {
+                                AxisMarks(position: .bottom) { _ in
+                                    AxisGridLine().foregroundStyle(.clear)
+                                    AxisTick().foregroundStyle(.clear)
+                                }
+                            }
                         }
                     }
-                    .chartXAxis {
-                        AxisMarks(position: .bottom) { _ in
-                            AxisGridLine().foregroundStyle(.clear)
-                            AxisTick().foregroundStyle(.clear)
-                        }
-                    }
-                    .frame(height: 100)
                     
                     Text("Fun Fact: asdf")
                 }
@@ -96,19 +102,48 @@ struct MainView: View {
                     ButtonView(text: "Retake", isPrimary: false)
                 }
                 if classifier.isDogVisible {
-                    Button{
-                        
-                    } label: {
-                        ButtonView(text: "Save to Collections")
-                        
+                    if hasSaved {
+                        NavigationLink{
+                            ContentView()
+                                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                        } label: {
+                            ButtonView(text: "View Collections")
+                        }
+                    } else {
+                        Button{
+                            addItem()
+                        } label: {
+                            ButtonView(text: "Save to Collections")
+                            
+                        }
                     }
                 }
             }
         }
-//        .frame(maxHeight: .infinity)
+        //        .frame(maxHeight: .infinity)
         .padding()
     }
     
+    private func addItem() {
+        //        withAnimation {
+        let newItem = Item(context: viewContext)
+        newItem.timestamp = Date()
+        newItem.breed = classifier.imageClass?.first?.identifier ?? ""
+        newItem.confidence = Double(classifier.imageClass?.first?.confidence ?? 0 * 100.0)
+        do {
+            try viewContext.save()
+            
+            withAnimation{
+                hasSaved = true
+            }
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+        //        }
+    }
 }
 
 struct MainView_Previews: PreviewProvider {

@@ -20,11 +20,11 @@ struct ContentView: View {
         NavigationView {
             List {
                 ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
-                    }
+//                    NavigationLink {
+                    Text("\(item.breed ?? "") (\(String(format: "%.2f", item.confidence * 100.0))) at \(item.timestamp!, formatter: itemFormatter)")
+//                    } label: {
+//                        Text(item.timestamp!, formatter: itemFormatter)
+//                    }
                 }
                 .onDelete(perform: deleteItems)
             }

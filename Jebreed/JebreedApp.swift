@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct JebreedApp: App {
-    let persistenceController = PersistenceController.shared
+    
 
     var body: some Scene {
         WindowGroup {

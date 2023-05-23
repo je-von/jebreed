@@ -91,6 +91,8 @@ struct CameraView: View {
     @State var selectedItem: PhotosPickerItem?
     
     @State var dogImage: UIImage?
+    
+    let persistenceController = PersistenceController.shared
     var captureButton: some View {
         Button(action: {
             model.capturePhoto()
@@ -128,8 +130,9 @@ struct CameraView: View {
             VStack {
                 
                 HStack {
-                    Button("Collections"){
-                        
+                    NavigationLink("Collections") {
+                        ContentView()
+                            .environment(\.managedObjectContext, persistenceController.container.viewContext)
                     }
                     Spacer()
                     Button(action: {
@@ -203,6 +206,7 @@ struct CameraView: View {
         }
         .navigationDestination(isPresented: $moveToResultPage){
             MainView(uiImage: dogImage, classifier: ImageClassifier())
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
