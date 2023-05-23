@@ -56,7 +56,7 @@ struct MainView: View {
                         BarMark(
                             x: .value("Source", c.confidence * 100)
                         )
-                        .clipShape(RoundedCorner(corners: c == imageClass.first ? [.bottomLeft, .topLeft] : c == imageClass.last ? [.bottomRight, .topRight] : []))
+                        .clipShape(RoundedCorner(radius: 12, corners: c == imageClass.first ? [.bottomLeft, .topLeft] : c == imageClass.last ? [.bottomRight, .topRight] : []))
                         .foregroundStyle(by: .value("Category", String(format: "\(c.identifier) (%.2f %%)                                                        ", c.confidence * 100)))
                         
                     }
