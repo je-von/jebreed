@@ -60,7 +60,7 @@ struct MainView: View {
                         .foregroundStyle(by: .value("Category", String(format: "\(c.identifier) (%.2f %%)                                                        ", c.confidence * 100)))
                         
                     }
-                    
+                    .chartXScale(domain: 0...(classifier.sum * 100))
                     .chartYAxis {
                         AxisMarks(position: .leading) { _ in
                             AxisGridLine().foregroundStyle(.clear)

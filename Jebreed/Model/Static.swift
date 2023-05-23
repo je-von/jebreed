@@ -20,7 +20,7 @@ let funFacts = [
     "Borzoi": "Borzois, also known as Russian Wolfhounds, were bred to hunt wolves in Russia.",
     "Pembroke": "Pembrokes were traditionally used as herding dogs and were associated with woodland fairies.",
     "Komondor": "Komondors have a distinctive corded coat that resembles dreadlocks.",
-    "Staffordshire Bull Terrier": "Staffordshire Bull Terriers are known for their loving and friendly nature.",
+    "Staffordshire Bullterrier": "Staffordshire Bull Terriers are known for their loving and friendly nature.",
     "Standard Poodle": "Standard Poodles were originally bred as water retrievers and are highly skilled swimmers.",
     "Eskimo Dog": "Eskimo Dogs, or American Eskimo Dogs, are descendants of European spitz-type dogs.",
     "English Foxhound": "English Foxhounds have an excellent sense of smell and are adept at tracking scents.",

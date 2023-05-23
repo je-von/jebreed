@@ -94,7 +94,7 @@ struct Classifier {
             return
         }
         
-        self.results = Array(imageClassifierResults.prefix(upTo: 3).filter{ $0.confidence > 0.01 })
+        self.results = Array(imageClassifierResults.prefix(upTo: 3).filter{ $0.confidence > 0.05 })
         self.sum = 0
         self.results?.forEach { r in
             self.sum += r.confidence
