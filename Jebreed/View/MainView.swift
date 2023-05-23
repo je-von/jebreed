@@ -52,39 +52,32 @@ struct MainView: View {
                     Text(imageClass.first?.identifier ?? "")
                         .bold()
                         .font(.title)
-                    GeometryReader{ geo in
-                        VStack{
-                            Text("geo: \(geo.size.height)")
-                            
-                            Chart(imageClass, id: \.self) { c in
-                                BarMark(
-                                    x: .value("Source", c.confidence * 100)
-                                )
-                                .foregroundStyle(by: .value("Category", String(format: "\(c.identifier) (%.2f %%)", c.confidence * 100)))
-                                
-                            }
-                            .chartYAxis {
-                                AxisMarks(position: .leading) { _ in
-                                    AxisGridLine().foregroundStyle(.clear)
-                                    AxisTick().foregroundStyle(.clear)
-                                }
-                            }
-                            .chartXAxis {
-                                AxisMarks(position: .bottom) { _ in
-                                    AxisGridLine().foregroundStyle(.clear)
-                                    AxisTick().foregroundStyle(.clear)
-                                }
-                            }
-                        }
+                    Chart(imageClass, id: \.self) { c in
+                        BarMark(
+                            x: .value("Source", c.confidence * 100)
+                        )
+                        .clipShape(RoundedCorner(corners: c == imageClass.first ? [.bottomLeft, .topLeft] : c == imageClass.last ? [.bottomRight, .topRight] : []))
+                        .foregroundStyle(by: .value("Category", String(format: "\(c.identifier) (%.2f %%)                                                        ", c.confidence * 100)))
+                        
                     }
                     
+                    .chartYAxis {
+                        AxisMarks(position: .leading) { _ in
+                            AxisGridLine().foregroundStyle(.clear)
+                            AxisTick().foregroundStyle(.clear)
+                        }
+                    }
+                    .chartXAxis {
+                        AxisMarks(position: .bottom) { _ in
+                            AxisGridLine().foregroundStyle(.clear)
+                            AxisTick().foregroundStyle(.clear)
+                        }
+                    }
+                    .frame(height: 6 * CGFloat(imageClass.count) + 60)
                     Text("Fun Fact: \(funFacts[classifier.imageClass?.first?.identifier ?? "default"] ?? "")")
+                        .padding(.vertical)
                 }
             } else {
-                //                    HStack{
-                //                        Text("Image categories: N/A")
-                //                            .font(.caption)
-                //                    }
             }
             if !classifier.isDogVisible {
                 Text("Oops!")
@@ -154,3 +147,15 @@ struct MainView_Previews: PreviewProvider {
         MainView(classifier: ImageClassifier())
     }
 }
+
+
+struct RoundedCorner: Shape {
+    var radius: CGFloat = .infinity
+    var corners: UIRectCorner = .allCorners
+    
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        return Path(path.cgPath)
+    }
+}
+
