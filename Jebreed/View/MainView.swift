@@ -89,13 +89,26 @@ struct MainView: View {
             }
             Spacer()
             
-            HStack{
+            if !classifier.isDogVisible {
+                Text(Image(systemName: "info.circle"))
+                +
+                Text(" Second-guessing our move? Click the button below if you're certain there's a dog there!")
                 Button{
-                    self.presentationMode.wrappedValue.dismiss()
+                    withAnimation{
+                        classifier.detect(uiImage: uiImage!, forceClassify: true)
+                    }
                 } label: {
-                    ButtonView(text: "Retake", isPrimary: false)
+                    ButtonView(text: "Indeed, there's definitely a doggo!")
+                    
                 }
-                if classifier.isDogVisible {
+            } else {
+                HStack{
+                    Button{
+                        self.presentationMode.wrappedValue.dismiss()
+                    } label: {
+                        ButtonView(text: "Retake", isPrimary: false)
+                    }
+                    //                if classifier.isDogVisible {
                     if hasSaved {
                         NavigationLink{
                             ContentView()
@@ -111,8 +124,11 @@ struct MainView: View {
                             
                         }
                     }
+                    //                }
                 }
+                
             }
+            
         }
         //        .frame(maxHeight: .infinity)
         .padding()

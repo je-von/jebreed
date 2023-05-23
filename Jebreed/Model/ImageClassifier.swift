@@ -25,11 +25,10 @@ class ImageClassifier: ObservableObject {
     var sum: Float {
         classifier.sum
     }
-        
-    // MARK: Intent(s)
-    func detect(uiImage: UIImage) {
+
+    func detect(uiImage: UIImage, forceClassify: Bool = false) {
         guard let ciImage = CIImage (image: uiImage) else { return }
-        classifier.detect(ciImage: ciImage)
+        classifier.detect(ciImage: ciImage, forceClassify: forceClassify)
         
     }
         
@@ -46,34 +45,37 @@ struct Classifier {
     
 //    private(set) var results: [VNRecognizedObjectObservation]?
     
-    mutating func detect(ciImage: CIImage) {
+    mutating func detect(ciImage: CIImage, forceClassify: Bool) {
         let defaultConfig = MLModelConfiguration()
         
+        if !forceClassify{
+            guard let objectDetectorModel = try? VNCoreMLModel(for: DogObjectDetector(configuration: defaultConfig).model)
+            else {
+                return
+            }
+            
+            var request = VNCoreMLRequest(model: objectDetectorModel)
+            
+            var handler = VNImageRequestHandler(ciImage: ciImage, options: [:])
+            
+            try? handler.perform([request])
+            
+            
+            
+            guard let objectDetectorResults = request.results as? [VNRecognizedObjectObservation] else {
+                return
+            }
+            
+            // No dogs detected
+            // TODO: show alert?
+            guard !objectDetectorResults.isEmpty else {
+                print("masuk sini")
+                isDogVisible = false
+                return
+            }
+            
+        }
         // Object detection to detect dogs in pictures
-        guard let objectDetectorModel = try? VNCoreMLModel(for: DogObjectDetector(configuration: defaultConfig).model)
-        else {
-            return
-        }
-        
-        var request = VNCoreMLRequest(model: objectDetectorModel)
-        
-        var handler = VNImageRequestHandler(ciImage: ciImage, options: [:])
-        
-        try? handler.perform([request])
-        
-        
-        
-        guard let objectDetectorResults = request.results as? [VNRecognizedObjectObservation] else {
-            return
-        }
-        
-        // No dogs detected
-        // TODO: show alert?
-        guard !objectDetectorResults.isEmpty else {
-            print("masuk sini")
-            isDogVisible = false
-            return
-        }
         
         
         // Image Classification
@@ -82,9 +84,9 @@ struct Classifier {
             return
         }
         
-        request = VNCoreMLRequest(model: imageClassifierModel)
+        var request = VNCoreMLRequest(model: imageClassifierModel)
         
-        handler = VNImageRequestHandler(ciImage: ciImage, options: [:])
+        var handler = VNImageRequestHandler(ciImage: ciImage, options: [:])
         
         try? handler.perform([request])
         
