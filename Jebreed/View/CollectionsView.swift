@@ -46,7 +46,7 @@ struct CollectionsView: View {
                             
                             
                             Button{
-                                //                            dele
+                                ImageSaver().writeToPhotoAlbum(image: UIImage(data: item.image!)!)
                             } label :{
                                 Label("Save to Photos", systemImage: "square.and.arrow.down")
                             }
