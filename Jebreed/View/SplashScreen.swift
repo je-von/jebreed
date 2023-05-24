@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SplashScreen: View {
+    let persistenceController = PersistenceController.shared
     var body: some View {
         NavigationStack {
             ZStack{
@@ -35,8 +36,15 @@ struct SplashScreen: View {
                         NavigationLink{
                             CameraView()
                         } label: {
-//                            Text("asd")
-                            ButtonView(text: "Start")
+                            //                            Text("asd")
+                            ButtonView(text: "Start Capturing")
+                        }
+                        NavigationLink{
+                            ContentView()
+                                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                        } label: {
+                            //                            Text("asd")
+                            ButtonView(text: "View My Collections", isPrimary: false)
                         }
                     }
                     .padding()
@@ -49,5 +57,6 @@ struct SplashScreen: View {
 struct SplashScreen_Previews: PreviewProvider {
     static var previews: some View {
         SplashScreen()
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

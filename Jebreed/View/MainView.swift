@@ -109,26 +109,35 @@ struct MainView: View {
                         ButtonView(text: "Retake", isPrimary: false)
                     }
                     //                if classifier.isDogVisible {
-                    if hasSaved {
-                        NavigationLink{
-                            ContentView()
-                                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                        } label: {
-                            ButtonView(text: "View Collections")
-                        }
-                    } else {
-                        Button{
-                            addItem()
-                        } label: {
-                            ButtonView(text: "Save to Collections")
-                            
-                        }
+                    //                    if hasSaved {
+                    //                        NavigationLink{
+                    //                            ContentView()
+                    //                                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    //                        } label: {
+                    //                            ButtonView(text: "View Collections")
+                    //                        }
+                    //                    } else {
+                    Button{
+                        addItem()
+                    } label: {
+                        ButtonView(text: !hasSaved ? "Save to Collections" : "Saved!", disabled: hasSaved)
+                        
                     }
+                    .disabled(hasSaved)
+                    //                    }
                     //                }
                 }
                 
             }
             
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink("Collections"){
+                    ContentView()
+                        .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                }
+            }
         }
         //        .frame(maxHeight: .infinity)
         .padding()

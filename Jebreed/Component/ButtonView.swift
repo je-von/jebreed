@@ -11,13 +11,15 @@ import SwiftUI
 struct ButtonView: View {
     var text: String
     var isPrimary: Bool = true
+    var disabled: Bool = false
     var body: some View {
         Text(text)
             .foregroundColor(.white)
             .padding(.vertical, 16)
             .frame(maxWidth: .infinity)
-            .background(isPrimary ? .blue : .gray)
+            .background(isPrimary && !disabled ? .blue : .gray)
             .cornerRadius(12)
+            .opacity(disabled ? 0.6 : 1)
     }
 }
 

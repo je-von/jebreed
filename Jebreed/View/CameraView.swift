@@ -111,6 +111,7 @@ struct CameraView: View {
         PhotosPicker(selection: $selectedItem, matching: .images) {
             Image(systemName: "photo.fill.on.rectangle.fill")
                 .foregroundColor(.white)
+                .font(.system(size: 20))
         }
     }
     
@@ -120,6 +121,7 @@ struct CameraView: View {
         }, label: {
             Image(systemName: "camera.rotate.fill")
                 .foregroundColor(.white)
+                .font(.system(size: 20))
         })
     }
     
@@ -129,21 +131,21 @@ struct CameraView: View {
             
             VStack {
                 
-                HStack {
-                    NavigationLink("Collections") {
-                        ContentView()
-                            .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                    }
-                    Spacer()
-                    Button(action: {
-                        model.switchFlash()
-                    }, label: {
-                        Image(systemName: model.isFlashOn ? "bolt.fill" : "bolt.slash.fill")
-                            .font(.system(size: 20, weight: .medium, design: .default))
-                    })
-                    .accentColor(model.isFlashOn ? .yellow : .white)
-                }
-                .padding(.horizontal, 16)
+                //                HStack {
+                ////                    NavigationLink("Collections") {
+                ////                        ContentView()
+                ////                            .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                ////                    }
+                //                    Spacer()
+                //                    Button(action: {
+                //                        model.switchFlash()
+                //                    }, label: {
+                //                        Image(systemName: model.isFlashOn ? "bolt.fill" : "bolt.slash.fill")
+                //                            .font(.system(size: 20, weight: .medium, design: .default))
+                //                    })
+                //                    .accentColor(model.isFlashOn ? .yellow : .white)
+                //                }
+                //                .padding(.horizontal, 16)
                 
                 ZStack {
                     CameraPreview(session: model.session)
@@ -188,8 +190,19 @@ struct CameraView: View {
             }
             
         }
-        .navigationBarBackButtonHidden(true)
-        .navigationBarHidden(true)
+        //        .navigationBarBackButtonHidden(true)
+        //        .navigationBarHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    model.switchFlash()
+                }, label: {
+                    Image(systemName: model.isFlashOn ? "bolt.fill" : "bolt.slash.fill")
+                        .font(.system(size: 20))
+                })
+                .accentColor(model.isFlashOn ? .yellow : .white)
+            }
+        }
         .onChange(of: model.photo){ p in
             if p != nil {
                 dogImage = model.photo != nil ? model.photo.image : nil

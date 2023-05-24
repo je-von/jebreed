@@ -9,15 +9,15 @@ import SwiftUI
 
 @main
 struct JebreedApp: App {
-    
+//    let persistenceController = PersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
 //            ContentView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
 //            MainView(classifier: ImageClassifier())
 //            CameraView()
             SplashScreen()
+                .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
         }
     }
 }
