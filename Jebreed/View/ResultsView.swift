@@ -25,122 +25,141 @@ struct ResultsView: View {
     
     let persistenceController = PersistenceController.shared
     var body: some View {
-        VStack{
+        GeometryReader { geo in
             VStack{
-                if uiImage != nil {
+                VStack{
+                    if uiImage != nil {
+                        
+                        Image(uiImage: uiImage!)
+                            .resizable()
+                            .scaledToFill()
+                            .onAppear{
+                                classifier.detect(uiImage: uiImage!)
+                            }
+                    } else {
+                        Image("hershey")
+                            .resizable()
+                            .scaledToFill()
+                    }
+                }
+                .frame(height: 340)
+                .cornerRadius(12)
+                .clipped()
+                .padding(.bottom)
+                .contextMenu{
+                    VStack{
+                        Button{
+                            ImageSaver().writeToPhotoAlbum(image: uiImage!)
+                        } label :{
+                            Label("Save to Photos", systemImage: "square.and.arrow.down")
+                        }
+                    }
                     
+                } preview: {
                     Image(uiImage: uiImage!)
                         .resizable()
                         .scaledToFill()
-                        .onAppear{
-                            classifier.detect(uiImage: uiImage!)
-                        }
-                } else {
-                    Image("hershey")
-                        .resizable()
-                        .scaledToFill()
+                        .frame(width: geo.size.width - 32)
+                        .cornerRadius(12)
+                        .clipped()
                 }
-            }
-            .frame(height: 340)
-            .cornerRadius(12)
-            .clipped()
-            .padding(.bottom)
-            
-            if let imageClass = classifier.imageClass {
-                VStack{
-                    Text("Yep, that's a")
-                    Text(imageClass.first?.identifier ?? "")
+                
+                if let imageClass = classifier.imageClass {
+                    VStack{
+                        Text("Yep, that's a")
+                        Text(imageClass.first?.identifier ?? "")
+                            .bold()
+                            .font(.title)
+                        Chart(imageClass, id: \.self) { c in
+                            BarMark(
+                                x: .value("Source", c.confidence * 100)
+                            )
+                            .clipShape(RoundedCorner(radius: 12, corners: imageClass.count == 1 ? [.allCorners] : c == imageClass.first ? [.bottomLeft, .topLeft] : c == imageClass.last ? [.bottomRight, .topRight] : []))
+                            .foregroundStyle(by: .value("Category", String(format: "\(c.identifier) (%.2f %%)                                                        ", c.confidence * 100)))
+                            
+                        }
+                        .chartXScale(domain: 0...(classifier.sum * 100))
+                        .chartYAxis {
+                            AxisMarks(position: .leading) { _ in
+                                AxisGridLine().foregroundStyle(.clear)
+                                AxisTick().foregroundStyle(.clear)
+                            }
+                        }
+                        .chartXAxis {
+                            AxisMarks(position: .bottom) { _ in
+                                AxisGridLine().foregroundStyle(.clear)
+                                AxisTick().foregroundStyle(.clear)
+                            }
+                        }
+                        .frame(height: 20 * CGFloat(imageClass.count + 1) + 20)
+                        .padding(.bottom)
+                        Text(Image(systemName: "info.circle"))
+                        +
+                        Text(" Fun Fact: \(funFacts[classifier.imageClass?.first?.identifier ?? "default"] ?? "")")
+                    }
+                } else {
+                }
+                if !classifier.isDogVisible {
+                    Text("Oops!")
                         .bold()
                         .font(.title)
-                    Chart(imageClass, id: \.self) { c in
-                        BarMark(
-                            x: .value("Source", c.confidence * 100)
-                        )
-                        .clipShape(RoundedCorner(radius: 12, corners: imageClass.count == 1 ? [.allCorners] : c == imageClass.first ? [.bottomLeft, .topLeft] : c == imageClass.last ? [.bottomRight, .topRight] : []))
-                        .foregroundStyle(by: .value("Category", String(format: "\(c.identifier) (%.2f %%)                                                        ", c.confidence * 100)))
-                        
-                    }
-                    .chartXScale(domain: 0...(classifier.sum * 100))
-                    .chartYAxis {
-                        AxisMarks(position: .leading) { _ in
-                            AxisGridLine().foregroundStyle(.clear)
-                            AxisTick().foregroundStyle(.clear)
-                        }
-                    }
-                    .chartXAxis {
-                        AxisMarks(position: .bottom) { _ in
-                            AxisGridLine().foregroundStyle(.clear)
-                            AxisTick().foregroundStyle(.clear)
-                        }
-                    }
-                    .frame(height: 20 * CGFloat(imageClass.count + 1) + 20)
-                    .padding(.bottom)
+                    Text("No dog in sight, woofless!")
+                }
+                Spacer()
+                
+                if !classifier.isDogVisible {
                     Text(Image(systemName: "info.circle"))
                     +
-                    Text(" Fun Fact: \(funFacts[classifier.imageClass?.first?.identifier ?? "default"] ?? "")")
-                }
-            } else {
-            }
-            if !classifier.isDogVisible {
-                Text("Oops!")
-                    .bold()
-                    .font(.title)
-                Text("No dog in sight, woofless!")
-            }
-            Spacer()
-            
-            if !classifier.isDogVisible {
-                Text(Image(systemName: "info.circle"))
-                +
-                Text(" Second-guessing our move? Click the button below if you're certain there's a dog there!")
-                Button{
-                    withAnimation{
-                        classifier.detect(uiImage: uiImage!, forceClassify: true)
-                    }
-                } label: {
-                    ButtonView(text: "Indeed, there's definitely a doggo!")
-                    
-                }
-            } else {
-                HStack{
+                    Text(" Second-guessing our move? Click the button below if you're certain there's a dog there!")
                     Button{
-                        self.presentationMode.wrappedValue.dismiss()
+                        withAnimation{
+                            classifier.detect(uiImage: uiImage!, forceClassify: true)
+                        }
                     } label: {
-                        ButtonView(text: "Retake", isPrimary: false)
-                    }
-                    //                if classifier.isDogVisible {
-                    //                    if hasSaved {
-                    //                        NavigationLink{
-                    //                            ContentView()
-                    //                                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                    //                        } label: {
-                    //                            ButtonView(text: "View Collections")
-                    //                        }
-                    //                    } else {
-                    Button{
-                        addItem()
-                    } label: {
-                        ButtonView(text: !hasSaved ? "Save to Collections" : "Saved!", disabled: hasSaved)
+                        ButtonView(text: "Indeed, there's definitely a doggo!")
                         
                     }
-                    .disabled(hasSaved)
-                    //                    }
-                    //                }
+                } else {
+                    HStack{
+                        Button{
+                            self.presentationMode.wrappedValue.dismiss()
+                        } label: {
+                            ButtonView(text: "Retake", isPrimary: false)
+                        }
+                        //                if classifier.isDogVisible {
+                        //                    if hasSaved {
+                        //                        NavigationLink{
+                        //                            ContentView()
+                        //                                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                        //                        } label: {
+                        //                            ButtonView(text: "View Collections")
+                        //                        }
+                        //                    } else {
+                        Button{
+                            addItem()
+                        } label: {
+                            ButtonView(text: !hasSaved ? "Save to Collections" : "Saved!", disabled: hasSaved)
+                            
+                        }
+                        .disabled(hasSaved)
+                        //                    }
+                        //                }
+                    }
+                    
                 }
                 
             }
-            
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink("Collections"){
-                    CollectionsView()
-                        .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink("Collections"){
+                        CollectionsView()
+                            .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    }
                 }
             }
-        }
-        //        .frame(maxHeight: .infinity)
+            //        .frame(maxHeight: .infinity)
         .padding()
+        }
     }
     
     private func addItem() {
