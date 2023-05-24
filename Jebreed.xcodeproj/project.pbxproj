@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0A1091AC2A15CB380014DEF3 /* JebreedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1091AB2A15CB380014DEF3 /* JebreedApp.swift */; };
-		0A1091AE2A15CB380014DEF3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1091AD2A15CB380014DEF3 /* ContentView.swift */; };
+		0A1091AE2A15CB380014DEF3 /* CollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1091AD2A15CB380014DEF3 /* CollectionsView.swift */; };
 		0A1091B02A15CB3A0014DEF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A1091AF2A15CB3A0014DEF3 /* Assets.xcassets */; };
 		0A1091B32A15CB3A0014DEF3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A1091B22A15CB3A0014DEF3 /* Preview Assets.xcassets */; };
 		0A1091B52A15CB3A0014DEF3 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1091B42A15CB3A0014DEF3 /* Persistence.swift */; };
@@ -20,14 +20,14 @@
 		0A324AD92A1CEB3800B01A11 /* DogObjectDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0A324AD82A1CEB3800B01A11 /* DogObjectDetector.mlmodel */; };
 		0A646FC82A1B2A1600B1DF6C /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A646FC72A1B2A1600B1DF6C /* SplashScreen.swift */; };
 		0ADC195C2A1609F500806D71 /* DogImageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0ADC195B2A1609F500806D71 /* DogImageClassifier.mlmodel */; };
-		0ADC195E2A160AA400806D71 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADC195D2A160AA400806D71 /* MainView.swift */; };
+		0ADC195E2A160AA400806D71 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADC195D2A160AA400806D71 /* ResultsView.swift */; };
 		0ADC19642A16132D00806D71 /* ImageClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADC19632A16132D00806D71 /* ImageClassifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0A1091A82A15CB380014DEF3 /* Jebreed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jebreed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A1091AB2A15CB380014DEF3 /* JebreedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JebreedApp.swift; sourceTree = "<group>"; };
-		0A1091AD2A15CB380014DEF3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		0A1091AD2A15CB380014DEF3 /* CollectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsView.swift; sourceTree = "<group>"; };
 		0A1091AF2A15CB3A0014DEF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A1091B22A15CB3A0014DEF3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0A1091B42A15CB3A0014DEF3 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -39,7 +39,7 @@
 		0A324AD82A1CEB3800B01A11 /* DogObjectDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DogObjectDetector.mlmodel; sourceTree = "<group>"; };
 		0A646FC72A1B2A1600B1DF6C /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		0ADC195B2A1609F500806D71 /* DogImageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DogImageClassifier.mlmodel; sourceTree = "<group>"; };
-		0ADC195D2A160AA400806D71 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		0ADC195D2A160AA400806D71 /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		0ADC19632A16132D00806D71 /* ImageClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageClassifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,10 +98,10 @@
 		0A646FC92A1BBCC300B1DF6C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0ADC195D2A160AA400806D71 /* MainView.swift */,
+				0ADC195D2A160AA400806D71 /* ResultsView.swift */,
 				0A13545E2A1631A800A3F018 /* CameraView.swift */,
 				0A646FC72A1B2A1600B1DF6C /* SplashScreen.swift */,
-				0A1091AD2A15CB380014DEF3 /* ContentView.swift */,
+				0A1091AD2A15CB380014DEF3 /* CollectionsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -205,12 +205,12 @@
 				0ADC19642A16132D00806D71 /* ImageClassifier.swift in Sources */,
 				0A1091B52A15CB3A0014DEF3 /* Persistence.swift in Sources */,
 				0A13545F2A1631A800A3F018 /* CameraView.swift in Sources */,
-				0ADC195E2A160AA400806D71 /* MainView.swift in Sources */,
+				0ADC195E2A160AA400806D71 /* ResultsView.swift in Sources */,
 				0A324AD32A1BC42F00B01A11 /* ButtonView.swift in Sources */,
 				0A1091B82A15CB3A0014DEF3 /* Jebreed.xcdatamodeld in Sources */,
 				0ADC195C2A1609F500806D71 /* DogImageClassifier.mlmodel in Sources */,
 				0A324AD92A1CEB3800B01A11 /* DogObjectDetector.mlmodel in Sources */,
-				0A1091AE2A15CB380014DEF3 /* ContentView.swift in Sources */,
+				0A1091AE2A15CB380014DEF3 /* CollectionsView.swift in Sources */,
 				0A1091AC2A15CB380014DEF3 /* JebreedApp.swift in Sources */,
 				0A324AD52A1C7D1D00B01A11 /* Static.swift in Sources */,
 			);

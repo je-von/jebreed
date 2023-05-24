@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct ContentView: View {
+struct CollectionsView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
@@ -17,9 +17,10 @@ struct ContentView: View {
     private var items: FetchedResults<Item>
 
     var body: some View {
+        GeometryReader{ geo in
             List {
                 ForEach(items) { item in
-//                    NavigationLink {
+                    //                    NavigationLink {
                     HStack{
                         if item.image != nil {
                             Image(uiImage: UIImage(data: item.image!)!)
@@ -40,13 +41,34 @@ struct ContentView: View {
                         
                         Text(String(format: "%.2f%%", item.confidence * 100.0))
                     }
-//                    } label: {
-//                        Text(item.timestamp!, formatter: itemFormatter)
-//                    }
+                    .contextMenu{
+                        VStack{
+                            
+                            
+                            Button{
+                                //                            dele
+                            } label :{
+                                Label("Save to Photos", systemImage: "square.and.arrow.down")
+                            }
+                            
+                        }
+                        
+                    } preview: {
+                        Image(uiImage: UIImage(data: item.image!)!)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: geo.size.width - 32)
+                            .cornerRadius(12)
+                            .clipped()
+                    }
+                    //                    } label: {
+                    //                        Text(item.timestamp!, formatter: itemFormatter)
+                    //                    }
                 }
                 .onDelete(perform: deleteItems)
             }
             .navigationTitle("Collections")
+        }
     }
 
     private func addItem() {
@@ -90,6 +112,6 @@ private let itemFormatter: DateFormatter = {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        CollectionsView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

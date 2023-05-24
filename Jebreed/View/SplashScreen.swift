@@ -19,13 +19,13 @@ struct SplashScreen: View {
                         .edgesIgnoringSafeArea(.all)
                         .frame(width: geo.size.width - 80, height: geo.size.height, alignment: .center)
                     
-                    Color.black.opacity(0.6)
+                    Color.black.opacity(0.5)
                         .edgesIgnoringSafeArea(.all)
-                    VStack (spacing: 20){
+                    VStack (alignment: .leading, spacing: 20){
                         Text("Jebreed")
                             .foregroundColor(.white)
                             .bold()
-                            .font(.system(size: 48))
+                            .font(.system(size: 52))
                         Spacer()
                         Text("Welcome!")
                             .foregroundColor(.white)
@@ -40,7 +40,7 @@ struct SplashScreen: View {
                             ButtonView(text: "Start Capturing")
                         }
                         NavigationLink{
-                            ContentView()
+                            CollectionsView()
                                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                         } label: {
                             //                            Text("asd")

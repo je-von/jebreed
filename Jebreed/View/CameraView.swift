@@ -218,7 +218,7 @@ struct CameraView: View {
             }
         }
         .navigationDestination(isPresented: $moveToResultPage){
-            MainView(uiImage: dogImage, classifier: ImageClassifier())
+            ResultsView(uiImage: dogImage, classifier: ImageClassifier())
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

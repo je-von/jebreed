@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 import Charts
 import CoreData
-struct MainView: View {
+struct ResultsView: View {
     @State var uiImage: UIImage?
     @ObservedObject var classifier: ImageClassifier
     
@@ -134,7 +134,7 @@ struct MainView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink("Collections"){
-                    ContentView()
+                    CollectionsView()
                         .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 }
             }
@@ -170,7 +170,7 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(classifier: ImageClassifier())
+        ResultsView(classifier: ImageClassifier())
     }
 }
 
